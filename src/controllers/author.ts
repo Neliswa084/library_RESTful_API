@@ -32,3 +32,34 @@ export const createNewAuthor = (req: Request, res: Response) => {
 
     res.status(201).json(newAuthor)
 }
+
+// export const updateAuthor = (req: Request, res: Response) => {
+//     const { id } = req.params
+//     const { firstName, lastName, emailAddress } = req.body
+
+//     const author = authors.find((a) => a.id === parseInt(id as string))
+
+//     if (!author) {
+//         return res.status(404).json({ message: "Author not found" })
+//     }
+
+//     author.firstName = firstName ?? author.firstName
+//     author.lastName = lastName ?? author.lastName
+//     author.emailAddress = emailAddress ?? author.emailAddress
+
+//     res.status(200).json(author)
+// }
+
+export const deleteAuthor = (req: Request, res: Response) => {
+    const { id } = req.params
+
+    const index = authors.findIndex((a) => a.id === parseInt(id as string))
+
+    if (index === -1) {
+        return res.status(404).json({ message: "Author not found" })
+    }
+
+    authors.splice(index, 1)
+
+    res.status(200).json({ message: "Author deleted successfully" })
+}
