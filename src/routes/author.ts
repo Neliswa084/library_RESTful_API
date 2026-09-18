@@ -1,6 +1,6 @@
 import {Router ,Request, Response} from "express";
 import {body, param, validationResult} from "express-validator";
-import { getAllAuthors ,createNewAuthor, getAuthorById,deleteAuthor} from "../controllers/author";
+import { getAllAuthors ,createNewAuthor, getAuthorById,deleteAuthor,updateAuthor} from "../controllers/author";
 
 const router = Router()
 
@@ -44,16 +44,16 @@ router.delete("/:id", [
     deleteAuthor(req, res)
 })
 
-// router.put("/:id", [
-//     param("id").isInt().withMessage("ID must be an integer"),
-//     body("firstName").optional().notEmpty().withMessage("First name cannot be empty"),
-//     body("lastName").optional().notEmpty().withMessage("Last name cannot be empty"),
-//     body("emailAddress").optional().isEmail().withMessage("Must be a valid email"),
-// ], (req: Request, res: Response) => {
-//     const errors = validationResult(req)
-//     if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array() })
-//     }
-//     updateAuthor(req, res)
-// })
+router.put("/:id", [
+    param("id").isInt().withMessage("ID must be an integer"),
+    body("firstName").optional().notEmpty().withMessage("First name cannot be empty"),
+    body("lastName").optional().notEmpty().withMessage("Last name cannot be empty"),
+    body("emailAddress").optional().isEmail().withMessage("Must be a valid email"),
+], (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+    updateAuthor(req, res)
+})
 export default router;  
