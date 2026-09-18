@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use(loggerMiddleware)
-app.use("/v1/authors", router)
+app.use("/authors", router)
 
 app.use(notFoundHandler)
 
