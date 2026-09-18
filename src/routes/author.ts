@@ -1,6 +1,6 @@
 import {Router ,Request, Response} from "express";
 import {body, param, validationResult} from "express-validator";
-import { getAllAuthors ,createNewAuthor} from "../controllers/author";
+import { getAllAuthors ,createNewAuthor, getAuthorById} from "../controllers/author";
 
 const router = Router()
 
@@ -18,6 +18,18 @@ router.post("/",[
     }
     createNewAuthor(req, res)
 
+}
+)
+
+router.get("/:id" , 
+    [param("id").isInt().withMessage("Id must be an interger")],
+    (req:Request , res: Response) =>{
+        const errors = validationResult(req)
+        console.log(errors , "Errors from express validator middleware")
+        if(!errors.isEmpty()){
+            return res.status(400).json({errors: errors.array()});
+    }
+    getAuthorById(req, res)
 }
 )
 export default router;
