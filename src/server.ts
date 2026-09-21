@@ -2,7 +2,7 @@ import express , { Express } from 'express';
 import bodyParser from 'body-parser';
 import { loggerMiddleware } from './middleware/logger';
 import { notFoundHandler } from './middleware/error';
-import router from './routes/author';
+import authorRoutes from './routes/author';
 import bookRoutes from './routes/book';
 
 
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use(loggerMiddleware)
-app.use("/authors", router)
+app.use("/authors", authorRoutes)
 app.use("/books", bookRoutes)
 
 app.use(notFoundHandler)
