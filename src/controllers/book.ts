@@ -30,3 +30,15 @@ export const createNewBook = (req: Request, res: Response) => {
 
     res.status(201).json(newBook)
 }
+
+export const deleteBook = (req: Request, res: Response) => {
+    const { id } = req.params
+    const index = books.findIndex((book) => book.id === parseInt(id as string))
+
+    if (index === -1) {
+        return res.status(404).json({ message: "Book not found" })
+    }
+    books.splice(index, 1)
+
+    res.status(200).json({ message: "Book deleted successfully" })
+}
