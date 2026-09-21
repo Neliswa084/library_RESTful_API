@@ -1,6 +1,6 @@
 import {Router ,Request, Response} from "express";
 import {body, param, validationResult} from "express-validator";
-import { createNewBook, deleteBook, getAllBooks ,  getBookById } from "../controllers/book";
+import { createNewBook, deleteBook, getAllBooks ,  getBookById, updateBook } from "../controllers/book";
 
 const router = Router()
 
@@ -41,4 +41,16 @@ router.delete("/:id", [
     deleteBook(req, res)
 })
 
+router.put("/:id", [
+    param("id").isInt().withMessage("ID must be an integer"),
+    body("title").optional().notEmpty().withMessage("Title cannot be empty"),
+    body("year").optional().isInt().withMessage("Year must be an integer"),
+    body("authorId").optional().isInt().withMessage("Author ID must be an integer"),
+], (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+    updateBook(req, res)
+})
 export default router;
