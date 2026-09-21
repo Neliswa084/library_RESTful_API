@@ -16,3 +16,17 @@ export const getBookById= (req: Request, res: Response) => {
     }
     res.status(200).json(book)
 }
+
+export const createNewBook = (req: Request, res: Response) => {
+    const { title, year, authorId } = req.body
+
+    const newBook: Books = {
+        id: books.length + 1,
+        title,
+        year,
+        authorId
+    }
+    books.push(newBook)
+
+    res.status(201).json(newBook)
+}
