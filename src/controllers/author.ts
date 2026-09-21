@@ -1,5 +1,6 @@
 import { Request , Response } from "express";
 import { Authors} from "../models/authorModel"
+import { books } from "./book";
 
 let authors : Authors[] =[] 
 
@@ -64,4 +65,12 @@ export const updateAuthor = (req: Request, res: Response) => {
     author.emailAddress = emailAddress ?? author.emailAddress
 
     res.status(200).json(author)
+}
+export const getBooksByAuthor = (req: Request, res: Response) => {
+    const { id } = req.params
+
+   
+    const authorBooks = books.filter((book) => book.authorId === parseInt(id as string))
+
+    res.status(200).json(authorBooks)
 }
